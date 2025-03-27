@@ -1,31 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import UserProfileForm from './components/UserProfileForm';
+import DrinkSelector from './components/DrinkSelector';
+import DrinkCustomizationForm from './components/DrinkCustomizationForm';
+import DrinkList from './components/DrinkList';
 
-const drinkSamples = [
-  { id: 1, drinkName: 'Modelo Especial', alcoholByVolume: 4.4, servingVolumeOz: 12 },
-  { id: 2, drinkName: 'Kirkland Signature Vodka', alcoholByVolume: 40, servingVolumeOz: 1.5 },
-  { id: 3, drinkName: 'Pilsner Urquell', alcoholByVolume: 4.45, servingVolumeOz: 16},
-];
+const BloodAlcoholCalculatorApp = () => {
+  const [userProfile, setUserProfile] = useState({});
+  const [sessionDrinks, setSessionDrinks] = useState([]);
 
-const DrinkCard = ({ drinkName, alcoholByVolume, servingVolumeOz }) => (
-  <div style={{ border: '1px solid #ccc', padding: '12px', margin: '10px 0' }}>
-    <h2>{drinkName}</h2>
-    <p><strong>Alcohol By Volume (ABV):</strong> {alcoholByVolume}%</p>
-    <p><strong>Serving Size:</strong> {servingVolumeOz} oz</p>
-  </div>
-);
+  const addDrinkToSession = (drink) => {
+    const uniqueDrink = { ...drink, uniqueId: crypto.randomUUID() };
+    setSessionDrinks([...sessionDrinks, uniqueDrink]);
+  };
 
-const BloodAlcoholContentCalculatorApp = () => (
-  <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-    <h1>Blood Alcohol Content Calculator (BACC)</h1>
-    {drinkSamples.map((drinkItem) => (
-      <DrinkCard
-        key={drinkItem.id}
-        drinkName={drinkItem.drinkName}
-        alcoholByVolume={drinkItem.alcoholByVolume}
-        servingVolumeOz={drinkItem.servingVolumeOz}
-      />
-    ))}
-  </div>
-);
+  const removeDrink = (idToRemove) => {
+    setSessionDrinks(prevDrinks => prevDrinks.filter(d => d.uniqueId !== idToRemove));
+  };
 
-export default BloodAlcoholContentCalculatorApp;
+  return (
+    <div className="container">
+      <h1>Blood Alcohol Content Calculator</h1>
+      <UserProfileForm userProfile={userProfile} setUserProfile={setUserProfile} />
+      <DrinkSelector onDrinkSelect={addDrinkToSession} />
+      <DrinkCustomizationForm addDrinkToSession={addDrinkToSession} />
+      <DrinkList sessionDrinks={sessionDrinks} removeDrink={removeDrink} />
+    </div>
+  );
+};
+
+export default BloodAlcoholCalculatorApp;

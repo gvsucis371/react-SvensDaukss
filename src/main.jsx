@@ -1,5 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import BloodAlcoholContentCalculatorApp from './App.jsx';
+import BloodAlcoholCalculatorApp from './App';
+import './style.css';
 
-ReactDOM.createRoot(document.getElementById('root')).render(<BloodAlcoholContentCalculatorApp />);
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BloodAlcoholCalculatorApp />
+  </React.StrictMode>
+);
