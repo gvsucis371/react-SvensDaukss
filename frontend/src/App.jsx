@@ -4,7 +4,7 @@ import DrinkSelector from './components/DrinkSelector';
 import DrinkCustomizationForm from './components/DrinkCustomizationForm';
 import DrinkList from './components/DrinkList';
 
-const BloodAlcoholCalculatorApp = () => {
+const BloodAlcoholConcentrationCalculatorApp = () => {
   const [userProfile, setUserProfile] = useState({});
   const [sessionDrinks, setSessionDrinks] = useState([]);
 
@@ -19,7 +19,7 @@ const BloodAlcoholCalculatorApp = () => {
 
   return (
     <div className="container">
-      <h1>Blood Alcohol Content Calculator</h1>
+      <h1>Blood Alcohol Concentration Calculator</h1>
       <UserProfileForm userProfile={userProfile} setUserProfile={setUserProfile} />
       <DrinkSelector onDrinkSelect={addDrinkToSession} />
       <DrinkCustomizationForm addDrinkToSession={addDrinkToSession} />
@@ -28,4 +28,4 @@ const BloodAlcoholCalculatorApp = () => {
   );
 };
 
-export default BloodAlcoholCalculatorApp;
+export default BloodAlcoholConcentrationCalculatorApp;
